@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Cart;
+
+class ProductController extends Controller
+{
+    function index(){
+
+        // összes terméket megkapom ami az adatbázisban van
+        $data = Product::all();
+
+        // Tömbe helyezés, hogy a view elérje az adatokat
+        return view('product', ['products' => $data]);
+    }
+
+    function detail($id){
+        $data = Product::find($id);
+        return view('detail',['product'=>$data]);
+    }
+
+    function addToCart(Request $req){
+
+
+        // Ha a felhasználó be van jelentkezve, akkor vissza adja hogy hello, ha nincs akkor oda dobja a bejelentkezés oldalra
+        if($req->session()->has('user'))
+        {
+            $cart = new Cart;
+            $cart->user_id = $req->session()->get('user')['id'];
+            $cart->product_id = $req->product_id_test;
+            $cart->save();
+
+            return redirect('/');
+        }
+        else {
+            return redirect('/login');
+        }
+    }
+}
