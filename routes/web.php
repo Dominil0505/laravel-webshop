@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,3 +28,12 @@ Route::get('/', [ProductController::class, 'index']);
 Route::get('/detail/{id}', [ProductController::class, 'detail']);
 
 Route::post('add_to_cart', [ProductController::class, 'addToCart']);
+
+Route::get('/cart', [ProductController::class, 'showCart']);
+
+
+// kijelentkezés
+Route::get('/logout', function () {
+    Session::forget('user');
+    return redirect('login');
+});

@@ -12,7 +12,7 @@
                 <h6>{{ $product['description'] }}</h6>
                 <form action="/add_to_cart" method="POST">
                     @csrf
-                    <input type="text name="product_id" value="{{ $product['id'] }}" />
+                    <input type="text" name="product_id" value="{{ $product['id'] }}" />
                     <button class="btn btn-success">Kosárba</button>
                 </form>
             </div>
